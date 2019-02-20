@@ -1,0 +1,96 @@
+% ===============================================
+% MATH 34: Multivariable calculus           Spring 2019
+% hw_template.tex
+% ===============================================
+
+% -------------------------------------------------------------------------
+% You can ignore this preamble. Go on
+% down to the section that says "START HERE" 
+% -------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage[margin=1.5in]{geometry} % Please keep the margins at 1.5 so that there is space for grader comments.
+\usepackage{amsmath,amsthm,amssymb,hyperref}
+
+\newcommand{\R}{\mathbf{R}}  
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\N}{\mathbf{N}}
+\newcommand{\Q}{\mathbf{Q}}
+
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{claim}[2][Claim]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{proposition}[2][Proposition]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+
+\begin{document}
+
+\large % please keep the text at this size for ease of reading.
+
+% ------------------------------------------ %
+%                 START HERE             %
+% ------------------------------------------ %
+
+\begin{center}
+{\Large CS6956 - HW1 - Tarun Sunkaraneni} % Replace "Author's Name" with your name
+\end{center}
+\vspace{0.05in}
+
+% -----------------------------------------------------
+% The "enumerate" environment allows for automatic problem numbering.
+% To make the number for the next problem, type " \item ". 
+% To make sub-problems such as (a), (b), etc., use an "enumerate" within an "enumerate."
+% -----------------------------------------------------
+
+\begin{enumerate}
+
+\item In class, we saw that word2vec employed the idea of negative sampling to estimate its parameters. In this question, you will go into the details of this technique. In particular, you will explore the connection between negative sampling and a different estimation technique called noise contrastive estimation.
+
+\begin{enumerate}
+\item Explain why techniques such as noise contrastive estimation or negative sampling are needed for training word embeddings? Is the problem still relevant given modern GPU based architectures?\\~\\
+Whenever we want to evaluate a probability for a word given a context, we will have to deal with summing up the probabilities of every word in the vocabulary given that particular context. This is intractable because vocabulary size is in the order of millions. Even if we were hypothetically  able to to train such a model using insane compute, forward pass on such a model would take a lot of time, and usually that part of the process is required to be immediate. Therefore, it is a problem to deal with any sensible GPU or CPU architectures.\\
+\item In section 3, the note mentions that negative sampling can be seen as a special case of noise contrastive estimation if certain conditions are met. Show that this argument is correct by working out the math.\\
+The paper gives the formula for NCE to be:
+�� $$p(D=0| w ,c) = \frac{k * q(w)}{u_\theta(w,c) + k * q(w)} $$
+$$p(D=1| w ,c) = \frac{u_\theta(w,c)}{u_\theta(w,c) + k * q(w)} $$
+If we plug in $k = |V|$ and $q(w) = \frac{1}{|V|}$, we get that $ k * q(w) = 1$, at which point we can derive the negative sampling form:
+$$p(D=0| w ,c) = \frac{1}{u_\theta(w,c) + 1} $$
+$$p(D=1| w ,c) = \frac{u_\theta(w,c)}{u_\theta(w,c) + 1} $$
+\end{enumerate}
+
+
+
+% -----------------------------------------------------
+% Second problem
+% -----------------------------------------------------
+\item In class, we saw that word embeddings are dense, low-dimensional embed- dings of text. An alternative approach could be to use what are sometimes called “traditional NLP features”, which are sparse and high dimensional. A natural ques- tion could be about how these two methods compare with each other.\\
+\begin{enumerate}
+\item Identify the main scientific contribution of the paper\\
+\begin{enumerate}
+\item A good paper will try to answer a specific question. Try to identify this question. For example, this could be a new idea, a unification of previous ideas into a more general framework, or an implementation of an idea to show that it works.
+\item Sometimes the question asked by the paper might be its most important contribution
+\item Sometimes the novelty of the approach could be its biggest selling factor
+\end{enumerate}
+Write a brief summary of the contribution(s) of the paper in your own words. This should be a short paragraph (about 3-4 sentences).
+\item Identify the positive aspects of the paper. What are the good ideas in the paper? What is their potential influence? How could you generalize the ideas? If you start research in this direction, what will be your next step?
+\item Does the paper have any weaknesses? Is there something fundamentally incorrect in the paper? Suppose you had to change something in the paper that made the contributions more clear. What would the changes be? Different experiments? More experiments? More theory? Other changes?
+\item Does the paper use the right set of experiments? Is the experimental setup con- vincing? What other experiments/results would strengthen the paper? Do the experiments really persuade you about the papers claims? Do the results persuade you?
+\item End with an open-ended discussion about the novelty, validity and (potential) impact of the paper.
+\end{enumerate}
+\end{enumerate}
+
+% ---------------------------------------------------
+% Anything after the \end{document} will be ignored by the typesetting.
+% ----------------------------------------------------
+
+\end{document}
