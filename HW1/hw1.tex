@@ -73,20 +73,15 @@ $$p(D=1| w ,c) = \frac{u_\theta(w,c)}{u_\theta(w,c) + 1} $$
 % -----------------------------------------------------
 % Second problem
 % -----------------------------------------------------
-\item In class, we saw that word embeddings are dense, low-dimensional embed- dings of text. An alternative approach could be to use what are sometimes called “traditional NLP features”, which are sparse and high dimensional. A natural ques- tion could be about how these two methods compare with each other.\\
-\begin{enumerate}
-\item Identify the main scientific contribution of the paper\\
-\begin{enumerate}
-\item A good paper will try to answer a specific question. Try to identify this question. For example, this could be a new idea, a unification of previous ideas into a more general framework, or an implementation of an idea to show that it works.
-\item Sometimes the question asked by the paper might be its most important contribution
-\item Sometimes the novelty of the approach could be its biggest selling factor
-\end{enumerate}
-Write a brief summary of the contribution(s) of the paper in your own words. This should be a short paragraph (about 3-4 sentences).
-\item Identify the positive aspects of the paper. What are the good ideas in the paper? What is their potential influence? How could you generalize the ideas? If you start research in this direction, what will be your next step?
-\item Does the paper have any weaknesses? Is there something fundamentally incorrect in the paper? Suppose you had to change something in the paper that made the contributions more clear. What would the changes be? Different experiments? More experiments? More theory? Other changes?
-\item Does the paper use the right set of experiments? Is the experimental setup con- vincing? What other experiments/results would strengthen the paper? Do the experiments really persuade you about the papers claims? Do the results persuade you?
-\item End with an open-ended discussion about the novelty, validity and (potential) impact of the paper.
-\end{enumerate}
+\item In class, we saw that word embeddings are dense, low-dimensional embed- dings of text. An alternative approach could be to use what are sometimes called “traditional NLP features”, which are sparse and high dimensional. A natural question could be about how these two methods compare with each other.
+\setlength{\parindent}{10ex}\par
+There are two big contributions this paper presents. The main contribution shows that using explicit context representations can yield comparable results to a neural network representation when tested for certain criteria. The second big contribution of this paper is the slightly tweaked objective function which outperforms the state-of- the-art at recovering relational similarities \textit{under both} neural and bag of context representations. The authors argue that this means the patterns which neural models have been able to "learn" still can be captured in the bag of contexts setting. \par
+One thing that is different than most other papers i've read is this authors' effort to help a reader replicate the experiments ran for the paper. From explaining Word2Vec parameters to pruning criteria for infrequent words, the authors show a level of transparency and implicitly urge readers to replicate and verify the results for themselves. The paper also mentions the work of Mikolov numerous times, and compares its findings to Mikolov's findings throughout the paper.  \par
+It would be interesting to see what causes "default word" answers, and to check whether those answers hold across \textit{both} the neural and bag of context embeddings in order to gain more insights about what could be causing it. I would also like to look into building an effective ensemble out of both the embeddings, which can attain a proposed maximum accuracy in the 70\%+. \par
+The experiments reported in the paper are clearly stated and their results are concise. In addition, every experiment performed seems to directly build up to a overarching idea that tweaking the objective function can give substantial gains to existing work. I appreciate that they replicated  the Mikolov experiment with the only change being the proposed 3CosMul objective brought up the evaluation score significantly. \par
+The paper uses an abundant and standard dataset for both training and evaluation, and the absolute percentage improvement of 20\% is pretty remarkable. Given that the authors were able to identify what categories each type of embedding did better on and were able to generalize each's strengths is impressive, and gives hope that we can use context as humans understand (neighborhood of words) to achieve good results with a statistical embedding model. \par
+The results of this paper are for the most part persuasive because two large datasets were used for evaluation, and the authors took the time to implement existing works to document some baseline percentages. I am \textbf{wary} that they stopped using SemEval to evaluate their \textit{key} contributions, so I cannot help but believe that that the 3CosMul objective is not the perfect word embedding objective function. However, I am satisfied to hear that the \textit{bag of contexts} embedding procedure does have the percentages to serve as a good baseline for tasks at hand.
+
 \end{enumerate}
 
 % ---------------------------------------------------
