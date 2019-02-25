@@ -6,13 +6,13 @@
 using namespace std;
 
 class LRUCache {
-    // stores elements in the cache
-    list<char> dq;
-    // stores references of key in the cache
-    map<char, list<char>::iterator> ma;
-    char csize;
-    
     public:
+        // stores elements in the cache
+        list<char> dq;
+        // stores references of key in the cache
+        map<char, list<char>::iterator> ma;
+        char csize;
+    
         LRUCache(char);
         char refer(char);
 };
@@ -35,22 +35,21 @@ char LRUCache::refer(char x) {
     }
     dq.push_front(x);
     ma[x] = dq.begin();
-    cout << last << endl;
     return last;
 }
 
 int main() {
-    cout << 'c' << endl;
     // ######## PARAMETERS #######
-    unsigned int associativity = 8;
-    unsigned int sets = 64;
+    char associativity = 8;
+    char sets = 64;
     // ##########################
-    LRUCache cache(2);
-    cout << (int) cache.refer(1); 
-    cout << (int) cache.refer(2); 
-    cout << (int) cache.refer(3); 
-    cout << (int) cache.refer(1); 
-    cout << (int) cache.refer(4); 
-    cout << (int) cache.refer(5); 
+    map<char, LRUCache *> cache_sets;
+    char i;
+    for(i = 0; i < sets; i++) {
+        cache_sets[i] = new LRUCache(associativity); 
+    }
+    
+    cache_sets[3]->refer(2);
+    cout << int(cache_sets[3]->dq.front()) << endl;
     return 0;
 }
