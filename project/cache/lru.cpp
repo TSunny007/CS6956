@@ -3,6 +3,9 @@
 #include <iterator> 
 #include <map>
 #include <list> 
+#include <fstream>
+#include <stdlib.h>
+
 using namespace std;
 
 class LRUCache {
@@ -49,7 +52,25 @@ int main() {
         cache_sets[i] = new LRUCache(associativity); 
     }
     
-    cache_sets[3]->refer(2);
-    cout << int(cache_sets[3]->dq.front()) << endl;
+    ifstream trace;
+    const string trace_file = "dummy.txt";
+    trace.open(trace_file.c_str());
+
+    unsigned long cycles_later, unk, address;
+    unsigned char operation;
+    string word;
+
+    while(trace >> cycles_later >> operation >> word) {
+	// cout << cycles_later << " " << operation << " " << word << endl;
+	address = strtol(word.c_str(), NULL, 16);
+        switch(operation) {
+	    case 'W':
+		break;
+	    case 'R':
+		trace >> unk;
+		break;
+	}
+    }   
+ 
     return 0;
 }
