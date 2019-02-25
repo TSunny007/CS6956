@@ -11,21 +11,21 @@ using namespace std;
 class LRUCache {
     public:
         // stores elements in the cache
-        list<char> dq;
+        list<long> dq;
         // stores references of key in the cache
-        map<char, list<char>::iterator> ma;
+        map<long, list<long>::iterator> ma;
         char csize;
     
         LRUCache(char);
-        char refer(char);
+        long refer(long);
 };
 
 LRUCache::LRUCache(char n) {
     csize = n;
 }
 
-char LRUCache::refer(char x) {
-    char last = -1;
+long LRUCache::refer(long x) {
+    long last = -1;
     if(ma.find(x) == ma.end()) {
         if (dq.size() == csize) {
             last = dq.back();
@@ -45,6 +45,8 @@ int main() {
     // ######## PARAMETERS #######
     char associativity = 8;
     char sets = 64;
+    char block_size = 128;
+    
     // ##########################
     map<char, LRUCache *> cache_sets;
     char i;
@@ -59,6 +61,9 @@ int main() {
     unsigned long cycles_later, unk, address;
     unsigned char operation;
     string word;
+    
+    unsigned long tag;
+    unsigned char set;
 
     while(trace >> cycles_later >> operation >> word) {
 	// cout << cycles_later << " " << operation << " " << word << endl;
@@ -70,6 +75,8 @@ int main() {
 		trace >> unk;
 		break;
 	}
+	set = (address >> 6) & (63);
+	tag = (address >> 11);
     }   
  
     return 0;
