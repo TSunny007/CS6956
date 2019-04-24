@@ -3,26 +3,29 @@
 #include <iterator> 
 #include <map>
 #include <list> 
+#include <fstream>
+#include <stdlib.h>
+
 using namespace std;
 
 class LRUCache {
     public:
         // stores elements in the cache
-        list<char> dq;
+        list<long> dq;
         // stores references of key in the cache
-        map<char, list<char>::iterator> ma;
+        map<long, list<long>::iterator> ma;
         char csize;
     
         LRUCache(char);
-        char refer(char);
+        long refer(long);
 };
 
 LRUCache::LRUCache(char n) {
     csize = n;
 }
 
-char LRUCache::refer(char x) {
-    char last = -1;
+long LRUCache::refer(long x) {
+    long last = -1;
     if(ma.find(x) == ma.end()) {
         if (dq.size() == csize) {
             last = dq.back();
@@ -42,6 +45,8 @@ int main() {
     // ######## PARAMETERS #######
     char associativity = 8;
     char sets = 64;
+    char block_size = 128;
+    
     // ##########################
     map<char, LRUCache *> cache_sets;
     char i;
@@ -49,7 +54,30 @@ int main() {
         cache_sets[i] = new LRUCache(associativity); 
     }
     
-    cache_sets[3]->refer(2);
-    cout << int(cache_sets[3]->dq.front()) << endl;
+    ifstream trace;
+    const string trace_file = "dummy.txt";
+    trace.open(trace_file.c_str());
+
+    unsigned long cycles_later, unk, address;
+    unsigned char operation;
+    string word;
+    
+    unsigned long tag;
+    unsigned char set;
+
+    while(trace >> cycles_later >> operation >> word) {
+	// cout << cycles_later << " " << operation << " " << word << endl;
+	address = strtol(word.c_str(), NULL, 16);
+        switch(operation) {
+	    case 'W':
+		break;
+	    case 'R':
+		trace >> unk;
+		break;
+	}
+	set = (address >> 6) & (63);
+	tag = (address >> 11);
+    }   
+ 
     return 0;
 }
